@@ -831,54 +831,14 @@
             { label: 'BSEE 23-27 Drive', keywords: ['bsee 23-27','23-27','bsee 23','previous batch','previous papers','drive'], url: DRIVE_LINKS[2].url },
             { label: 'BSEE 24-28 Drive', keywords: ['bsee 24-28','24-28','bsee 24','previous batch','previous papers','drive'], url: DRIVE_LINKS[3].url }
         ];
-        function openSearchResult(url, label){
-            showToast(`📂 Opening ${label} Drive...`);
-            window.open(url, '_blank', 'noopener,noreferrer');
-        }
-        SEARCH_INDEX.forEach(item => { item.action = () => openSearchResult(item.url, item.label); });
-        const SEMESTER_QUERY_PATTERNS = [
-            { num: 1, patterns: [/semester\s*0?1\b/, /\bsem\s*0?1\b/, /\b1\s*courses?\b/] },
-            { num: 2, patterns: [/semester\s*0?2\b/, /\bsem\s*0?2\b/, /\b2\s*courses?\b/] },
-            { num: 3, patterns: [/semester\s*0?3\b/, /\bsem\s*0?3\b/, /\b3\s*courses?\b/] }
-        ];
-        const searchInput = document.getElementById('searchInput');
-        const searchSuggestionsEl = document.getElementById('searchSuggestions');
-        document.body.appendChild(searchSuggestionsEl); // portal out of the header so it can never be clipped
-        const suggestionIconSVG = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.7 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.7-4-9s1.5-6.5 4-9z"/></svg>`;
-        const suggestionArrowSVG = `<svg class="search-suggestion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M8 7h9v9"/></svg>`;
-        function positionSearchSuggestions(){
-            const rect = searchInput.closest('.topbar-search').getBoundingClientRect();
-            searchSuggestionsEl.style.left = `${rect.left}px`;
-            searchSuggestionsEl.style.top = `${rect.bottom + 8}px`;
-            searchSuggestionsEl.style.width = `${rect.width}px`;
-        }
-        function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-        function wordBoundaryMatch(haystack, needle){
-            if(!needle) return false;
-            try { return new RegExp('(^|[^a-z0-9])' + escapeRegExp(needle) + '($|[^a-z0-9])', 'i').test(haystack); }
-            catch(e){ return haystack.includes(needle); }
-        }
-        function matchSearchIndex(query){
-            if(!query) return [];
-            for(const sp of SEMESTER_QUERY_PATTERNS){
-                if(sp.patterns.some(p => p.test(query))){
-                    const groupMatches = SEARCH_INDEX.filter(item => item.semester === sp.num);
-                    if(groupMatches.length) return groupMatches;
-                }
-            }
-            return SEARCH_INDEX.filter(item => item.label.toLowerCase().includes(query) || item.keywords.some(k => k.includes(query) || wordBoundaryMatch(query, k)));
-        }
         function closeSuggestions(){
             searchSuggestionsEl.classList.remove('open');
             searchSuggestionsEl.innerHTML = '';
             searchInput.setAttribute('aria-expanded','false');
         }
-        function renderSuggestions(query){
-            const matches = matchSearchIndex(query);
+        function renderSuggestionItems(matches, count){
             searchSuggestionsEl.innerHTML = '';
-            if(!query || !matches.length){ closeSuggestions(); return; }
-            positionSearchSuggestions();
-            matches.forEach(item => {
+            matches.slice(0, count).forEach(item => {
                 const el = document.createElement('div');
                 el.className = 'search-suggestion-item';
                 el.setAttribute('role','option');
@@ -891,28 +851,42 @@
                 });
                 searchSuggestionsEl.appendChild(el);
             });
+
+            const shown = Math.min(count, matches.length);
+            if (shown < matches.length) {
+                const noteText = shown >= 15
+                    ? 'Showing the top 15 most relevant results. Refine your search to see more specific matches.'
+                    : 'Showing the top 7 most relevant results.';
+                const note = document.createElement('div');
+                note.className = 'search-suggestion-note';
+                note.style.cssText = 'padding:8px 14px; font-family:var(--font-mono); font-size:0.7rem; color:var(--muted); border-top:1px solid var(--line); line-height:1.4;';
+                note.textContent = noteText;
+                searchSuggestionsEl.appendChild(note);
+
+                if (shown < 15) {
+                    const showMoreBtn = document.createElement('button');
+                    showMoreBtn.type = 'button';
+                    showMoreBtn.className = 'search-suggestion-showmore';
+                    showMoreBtn.style.cssText = 'display:flex; align-items:center; justify-content:center; gap:6px; width:100%; padding:10px 14px; background:var(--card); border:none; border-top:1px solid var(--line); color:var(--accent); font-family:var(--font-mono); font-size:0.78rem; font-weight:600; cursor:pointer; transition:background 0.15s ease;';
+                    showMoreBtn.textContent = 'Show More Suggestions';
+                    showMoreBtn.addEventListener('mouseover', () => { showMoreBtn.style.background = 'var(--card-hover)'; });
+                    showMoreBtn.addEventListener('mouseout', () => { showMoreBtn.style.background = 'var(--card)'; });
+                    showMoreBtn.addEventListener('mousedown', e => {
+                        e.preventDefault();
+                        renderSuggestionItems(matches, 15);
+                    });
+                    searchSuggestionsEl.appendChild(showMoreBtn);
+                }
+            }
+        }
+        function renderSuggestions(query){
+            const matches = matchSearchIndex(query);
+            if(!query || !matches.length){ closeSuggestions(); return; }
+            positionSearchSuggestions();
+            renderSuggestionItems(matches, 7);
             searchSuggestionsEl.classList.add('open');
             searchInput.setAttribute('aria-expanded','true');
         }
-        searchInput.addEventListener('input', () => renderSuggestions(searchInput.value.trim().toLowerCase()));
-        searchInput.addEventListener('focus', () => { if(searchInput.value.trim()) renderSuggestions(searchInput.value.trim().toLowerCase()); });
-        window.addEventListener('resize', () => { if(searchSuggestionsEl.classList.contains('open')) positionSearchSuggestions(); }, { passive: true });
-        window.addEventListener('scroll', () => { if(searchSuggestionsEl.classList.contains('open')) positionSearchSuggestions(); }, { passive: true });
-        document.addEventListener('click', e => { if(!e.target.closest('.topbar-search') && !e.target.closest('.search-suggestions')) closeSuggestions(); });
-        searchInput.addEventListener('keydown', e => {
-            if (e.key === 'Escape') { closeSuggestions(); return; }
-            if (e.key !== 'Enter') return;
-            const q = searchInput.value.trim().toLowerCase();
-            if (!q) return;
-            const matches = matchSearchIndex(q);
-            if (matches.length) {
-                matches[0].action();
-                searchInput.value = '';
-                closeSuggestions();
-                searchInput.blur();
-            } else {
-                showToast('🔎 No direct match — try Browse Vault below');
-            }
         });
 
         // Theme

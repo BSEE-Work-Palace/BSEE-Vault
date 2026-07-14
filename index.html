@@ -338,11 +338,14 @@
         #projectsModalContent { max-height: 48vh; overflow-y: auto; padding: 2px 6px 2px 2px; }
         .proj-locked-entry { display: flex; align-items: center; gap: 13px; padding: 15px 16px; border-radius: 15px; border: 1px solid var(--line); background: var(--card); margin-bottom: 9px; cursor: pointer; transition: 0.25s ease; }
         .proj-locked-entry:hover { border-color: rgba(255,176,46,0.45); box-shadow: 0 0 0 1px var(--lock) inset, 0 9px 20px rgba(255,176,46,0.16); transform: translateY(-2px); }
+        .proj-locked-entry:has(.proj-tag-open):hover { border-color: rgba(var(--accent-rgb), 0.45); box-shadow: 0 0 0 1px var(--accent) inset, 0 9px 20px rgba(var(--accent-rgb), 0.16); }
         .proj-locked-entry .proj-icon { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; background: rgba(255,176,46,0.1); border: 1px solid rgba(255,176,46,0.3); color: var(--lock); flex: 0 0 auto; }
         .proj-locked-entry .proj-icon svg { width: 17px; height: 17px; fill: currentColor; }
         .proj-locked-entry .proj-info strong { display: block; font-size: 0.9rem; margin-bottom: 2px; }
         .proj-locked-entry .proj-info span { font-size: 0.78rem; color: var(--muted); }
         .proj-locked-entry .proj-tag { margin-left: auto; font-family: var(--font-mono); font-size: 0.68rem; padding: 4px 9px; border-radius: 999px; border: 1px solid rgba(255,176,46,0.4); color: var(--lock); background: rgba(255,176,46,0.07); white-space: nowrap; }
+        .proj-locked-entry .proj-tag.proj-tag-open { border-color: rgba(var(--accent-rgb), 0.4); color: var(--accent); background: rgba(var(--accent-rgb), 0.07); }
+        .proj-locked-entry .proj-icon.proj-icon-open { background: rgba(var(--accent-rgb), 0.1); border: 1px solid rgba(var(--accent-rgb), 0.3); color: var(--accent); }
 
         @keyframes lockShake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-3px); } 80% { transform: translateX(3px); } }
         .shake { animation: lockShake 0.4s ease; }
@@ -388,7 +391,7 @@
                 <div class="brand-copy">
                     <div class="eyebrow">BSEE RESOURCE VAULT</div>
                     <h1>BS Electrical Engineering Resource Vault</h1>
-                    <p>Semester Content • Past Papers • Projects • Senior Batch Resources</p>
+                    <p>Semester Notes • Labs • Past Papers • Projects • Senior Batch Resources</p>
                 </div>
             </div>
 
@@ -423,9 +426,6 @@
                     <h2>Welcome to <span class="accent-word">BSEE Resource Vault</span>, Curated by BSEE 25-29 Batch.</h2>
                     <p>A student-led academic resource hub developed by the BSEE 2025–2029 Batch, dedicated to providing organized access to semester notes, laboratory materials, assignments, projects, past papers, and other essential Electrical Engineering resources. The platform aims to support academic excellence, collaborative learning, and knowledge sharing, serving as a valuable resource for both current and future BSEE students.
 </p>
-                    <div class="vault-motto">
-  LEARN ⚡ <span class="fat-dot">⬤</span> GROW 🌿 <span class="fat-dot">⬤</span> EXCEL 🚀
-</div>
                     <div class="hero-actions">
                         <a class="btn" href="#core-modules">Browse Vault</a>
                     </div>
@@ -486,7 +486,7 @@
                 <div class="sub-section-head">
                     <span class="sub-section-eyebrow">// Semester 03</span>
                     <h3>📄 Semester 03 (Past Papers)</h3>
-                    <p>Access Semester 03 past papers to prepare for midterms, and final examinations.</p>
+                    <p>This folder contains past papers and study resources to help Semester 03 students prepare for quizzes, mid exams, and final examinations.</p>
                 </div>
                 <div class="sub-section-body">
                     <div class="cards-row">
@@ -498,13 +498,13 @@
                                 <span class="card-top-divider" aria-hidden="true"></span>
                                 <div>
                                     <h4>Semester 03 Past Papers</h4>
-                                    <p>Click here to find Semester 03 past papers.</p>
+                                    <p>Quizzes, mid-terms, and final exam past papers curated specifically to help Semester 03 students prepare.</p>
                                 </div>
                             </div>
                             <div class="card-links">
                                 <a class="mini-link" href="https://drive.google.com/drive/folders/184Wg33vlW7vMmpEVoP3cuQS3ZVoE1C-r?usp=sharing" target="_blank" rel="noopener noreferrer">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
-                                    View Papers
+                                    Open Folder
                                 </a>
                             </div>
                         </div>
@@ -619,8 +619,8 @@
     <div class="modal-overlay" id="notificationModalOverlay" aria-hidden="true">
         <div class="modal-card modal-tiny" role="dialog" aria-label="Notifications" aria-modal="true">
             <button class="modal-close" id="notificationModalClose" type="button" aria-label="Close">×</button>
-            <div class="modal-title">🔔 Notifications</div>
-            <div class="modal-message">The Admin hasn't posted any notifications yet.</div>
+            <div class="modal-title">📢 Notifications</div>
+            <div class="modal-message">The host hasn't posted any notifications yet.</div>
         </div>
     </div>
     <div class="modal-overlay" id="semestersAllModalOverlay" aria-hidden="true">
@@ -646,7 +646,7 @@
         <div class="modal-card" role="dialog" aria-label="Projects" aria-modal="true">
             <button class="modal-close" id="projectsModalClose" type="button" aria-label="Close">×</button>
             <div class="modal-title">Project Library</div>
-            <p class="modal-subtitle">Content has not been uploaded yet by the Admin.</p>
+            <p class="modal-subtitle">Content has not been uploaded yet by the host.</p>
             <div id="projectsModalContent"></div>
         </div>
     </div>
@@ -662,6 +662,24 @@
     <script>
         const SEM1_DRIVE_URL = 'https://drive.google.com/drive/folders/1Gy7Lqyslt5ulBMMwG6KqhvP1ocIk1gKp?usp=sharing';
         const SEM2_DRIVE_URL = 'https://drive.google.com/drive/folders/1LZE0wdUzIQXabwiirC8OGx1Zmut7G0Zc?usp=sharing';
+        const UNIVERSITY_PROJECTS_URL = 'https://drive.google.com/drive/folders/1SdZgBx0YG89SxolfxfnRQVViNIlw67Zc?usp=sharing';
+        const SEM1_PAPERS_URL = 'https://drive.google.com/drive/folders/14T29l4YgafkLpdQe-6Xe-nbKIA7bKEaP?usp=sharing';
+        const CFP_URL = 'https://drive.google.com/drive/folders/1tjqe3twvF4Bcp3hrSjPJ-4fMhKqsWR1m?usp=sharing';
+        const ISTD_URL = 'https://drive.google.com/drive/folders/1GeSxSobgI3l9aQbpmYQffLq9JMDA27-b?usp=sharing';
+        const ENT_URL = 'https://drive.google.com/drive/folders/1RQW1SXGN4Zaa1NszPxkokUGBLtyx7Btc?usp=sharing';
+        const ICOP_URL = 'https://drive.google.com/drive/folders/1bY7QC0uFF6lDGck5j6x0JpwTWue1LT4o?usp=sharing';
+        const CAI_URL = 'https://drive.google.com/drive/folders/1u7etfCDd7LyB11MB3ZTn16souoh4gT_Q?usp=sharing';
+        const CALI_URL = 'https://drive.google.com/drive/folders/1jqXZjWZvaNF--DgwkWeNEfezLs8Y3d48?usp=sharing';
+        const SEM2_PAPERS_URL = 'https://drive.google.com/drive/folders/1sfL3Ho8Yx1D5-_O_GgvUF5rJKhhCaKqp?usp=sharing';
+        const UQI_URL = 'https://drive.google.com/drive/folders/1pJRLvhu6bVNQk9MEn5FxAOwvwNasGtGW?usp=sharing';
+        const FE_URL = 'https://drive.google.com/drive/folders/13cmXYNbSnuo_PKZrEDqRvuzmUw4zwVeE?usp=sharing';
+        const EDC_URL = 'https://drive.google.com/drive/folders/1gzNqyXk-FallyF5JNDWHDHXwwtKF18D9?usp=sharing';
+        const AP_URL = 'https://drive.google.com/drive/folders/15CWrV1Bz069RGNs8xLuG6LgCEu96-wSG?usp=sharing';
+        const CALII_URL = 'https://drive.google.com/drive/folders/1RaYjngQI-wMNMIrVokw13oGMmohZwN-a?usp=sharing';
+        const LA_URL = 'https://drive.google.com/drive/folders/1NjKTF0Vrvwem2kKI8IZJD0DZulSpC-7F?usp=sharing';
+        const DE_URL = 'https://drive.google.com/drive/folders/1OyyJ3BwManeqq4I7KGjoU0_jt_Rk09mD?usp=sharing';
+        const CAI_CEP_URL = 'https://drive.google.com/drive/folders/1dhoc4EUmsUpIOxzfUu9bvgtLlE68aZsC?usp=sharing';
+        const EDC_CEP_URL = 'https://drive.google.com/drive/folders/1Cslyv4x3-DMDgziNerMpno5cZi-6FudZ?usp=sharing';
         const SEM_INFO_ALL = [
             { n:1, title:'Semester 1', desc:'Cal-I, CA-I, CF&P, ENT, ICOP, IStd', locked:false, driveUrl: SEM1_DRIVE_URL },
             { n:2, title:'Semester 2', desc:'EDC, Cal-II, LA, DE, AP, FE', locked:false, driveUrl: SEM2_DRIVE_URL },
@@ -680,6 +698,7 @@
         ];
 
         const iconLockSVG = `<svg viewBox="0 0 24 24"><path d="M6 10V8a6 6 0 0 1 12 0v2h.5A1.5 1.5 0 0 1 20 11.5v9A1.5 1.5 0 0 1 18.5 22h-13A1.5 1.5 0 0 1 4 20.5v-9A1.5 1.5 0 0 1 5.5 10H6zm2 0h8V8a4 4 0 0 0-8 0v2z"/></svg>`;
+        const iconOpenFolderSVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>`;
         const toastStack = document.getElementById('toastStack');
         function showToast(msg){ const el=document.createElement('div'); el.className='toast'; el.innerHTML=`<span class="toast-dot"></span><span>${msg}</span>`; toastStack.appendChild(el); requestAnimationFrame(()=>el.classList.add('show')); setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(),320) },2200); }
         function shakeElement(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
@@ -705,7 +724,17 @@
                 grid.appendChild(card);
             });
         }
-        function renderProjectsLocked(container){ container.innerHTML=`<div class="proj-locked-entry"><div class="proj-icon">${iconLockSVG}</div><div class="proj-info"><strong>University Projects</strong><span>Team-based academic projects</span></div><span class="proj-tag">🔒 Coming Soon</span></div><div class="proj-locked-entry"><div class="proj-icon">${iconLockSVG}</div><div class="proj-info"><strong>Individual Projects</strong><span>Personal & practice builds</span></div><span class="proj-tag">🔒 Coming Soon</span></div>`; container.querySelectorAll('.proj-locked-entry').forEach(e=>{ e.addEventListener('click',()=>{ shakeElement(e); showToast('🔒 Project content — Coming Soon'); }); }); }
+        function renderProjectsLocked(container){
+            container.innerHTML = `<div class="proj-locked-entry" id="universityProjectsEntry"><div class="proj-icon proj-icon-open">${iconOpenFolderSVG}</div><div class="proj-info"><strong>University Projects</strong><span>Team-based academic projects</span></div><span class="proj-tag proj-tag-open">📁 Open Drive</span></div><div class="proj-locked-entry"><div class="proj-icon">${iconLockSVG}</div><div class="proj-info"><strong>Individual Projects</strong><span>Personal & practice builds</span></div><span class="proj-tag">🔒 Coming Soon</span></div>`;
+            document.getElementById('universityProjectsEntry').addEventListener('click', () => {
+                showToast('📂 Opening University Projects Drive...');
+                window.open(UNIVERSITY_PROJECTS_URL, '_blank', 'noopener,noreferrer');
+            });
+            container.querySelectorAll('.proj-locked-entry').forEach(e => {
+                if (e.id === 'universityProjectsEntry') return;
+                e.addEventListener('click', () => { shakeElement(e); showToast('🔒 Project content — Coming Soon'); });
+            });
+        }
 
         function renderDrivesGrid(grid){
             grid.innerHTML = '';
@@ -758,14 +787,53 @@
         // Search index + autocomplete suggestions
         const SEM3_PASTPAPERS_URL = 'https://drive.google.com/drive/folders/184Wg33vlW7vMmpEVoP3cuQS3ZVoE1C-r?usp=sharing';
         const SEARCH_INDEX = [
-            { label: 'Semester 01', keywords: ['semester 01','semester 1','sem 01','sem1','sem 1','semester01'], action: () => openSearchResult(SEM1_DRIVE_URL, 'Semester 01') },
-            { label: 'Semester 02', keywords: ['semester 02','semester 2','sem 02','sem2','sem 2','semester02','semester 02 past papers','semester 2 past papers'], action: () => openSearchResult(SEM2_DRIVE_URL, 'Semester 02') },
-            { label: 'Semester 03 Past Papers', keywords: ['semester 03 past papers','semester 3 past papers','sem 03 past papers','sem3 past papers','semester 03','semester 3','sem 03','sem3','sem 3','past papers'], action: () => openSearchResult(SEM3_PASTPAPERS_URL, 'Semester 03 Past Papers') }
+            // General semester folders (existing)
+            { label: 'Semester 01', keywords: ['semester 01','semester 1','sem 01','sem1','sem 1','semester01'], url: SEM1_DRIVE_URL, semester: 1 },
+            { label: 'Semester 02', keywords: ['semester 02','semester 2','sem 02','sem2','sem 2','semester02'], url: SEM2_DRIVE_URL, semester: 2 },
+            { label: 'Semester 03 Past Papers', keywords: ['semester 03 past papers','semester 3 past papers','sem 03 past papers','sem3 past papers','semester 03','semester 3','sem 03','sem3','sem 3'], url: SEM3_PASTPAPERS_URL, semester: 3 },
+
+            // Semester 01 courses
+            { label: 'Semester 01 Papers', keywords: ['bsee 25/29 papers semester i','semester 1 papers','sem 1 papers','semester 01 papers','papers semester 1','bsee papers sem 1'], url: SEM1_PAPERS_URL, semester: 1 },
+            { label: 'Computer Fundamentals & Programming', keywords: ['cis-101','cis101','cf&p','cfp','computer fundamentals','computer fundamentals & programming','computer fundamentals and programming','programming'], url: CFP_URL, semester: 1 },
+            { label: 'Islamic Studies', keywords: ['cms-101','cms101','istd','islamic studies','islamiyat'], url: ISTD_URL, semester: 1 },
+            { label: 'Entrepreneurship', keywords: ['cms-109','cms109','109','ent','entrepreneurship'], url: ENT_URL, semester: 1 },
+            { label: 'Ideology & Constitution of Pakistan', keywords: ['cms-123','cms123','123','icop','ideology','constitution','ideology & constitution of pakistan','ideology and constitution of pakistan','pakistan studies'], url: ICOP_URL, semester: 1 },
+            { label: 'Circuit Analysis I', keywords: ['ee-111','ee111','111','ca-i','ca1','circuit analysis','circuit analysis i','circuit'], url: CAI_URL, semester: 1 },
+            { label: 'Calculus I', keywords: ['pam-101','pam101','cal-i','cal1','calculus','calculus i','cal'], url: CALI_URL, semester: 1 },
+
+            // Semester 02 courses
+            { label: 'Semester 02 Papers', keywords: ['bsee 25/29 papers semester ii','semester 2 papers','sem 2 papers','semester 02 papers','papers semester 2','bsee papers sem 2'], url: SEM2_PAPERS_URL, semester: 2 },
+            { label: 'Understanding of Quran I', keywords: ['cms-112','cms112','112','uq-i','uq1','understanding of quran','quran'], url: UQI_URL, semester: 2 },
+            { label: 'Functional English', keywords: ['cms-210','cms210','210','fe','functional english','english'], url: FE_URL, semester: 2 },
+            { label: 'Electronic Devices & Circuits', keywords: ['ee-120','ee120','120','edc','electronic devices','electronic devices & circuits','electronic devices and circuits','electronics'], url: EDC_URL, semester: 2 },
+            { label: 'Applied Physics', keywords: ['pam-124','pam124','124','ap','applied physics','physics'], url: AP_URL, semester: 2 },
+            { label: 'Calculus II', keywords: ['pam-202','pam202','202','cal-ii','cal2','calculus ii','cal'], url: CALII_URL, semester: 2 },
+            { label: 'Linear Algebra', keywords: ['pam-242','pam242','242','la','linear algebra','algebra'], url: LA_URL, semester: 2 },
+            { label: 'Differential Equations', keywords: ['pam-255','pam255','255','de','differential equations','differential'], url: DE_URL, semester: 2 },
+
+            // CEP folders
+            { label: 'Circuit Analysis I – CEP', keywords: ['circuit analysis i cep','ca-i cep','ca1 cep','circuit cep','cep circuit analysis','111 cep'], url: CAI_CEP_URL },
+            { label: 'Electronic Devices & Circuits – CEP', keywords: ['edc cep','electronic devices cep','electronics cep','cep edc','120 cep'], url: EDC_CEP_URL },
+
+            // University Projects (Core Modules → University Projects)
+            { label: 'University Projects', keywords: ['university projects','university project','university projects & cep','projects cep','cep university projects'], url: UNIVERSITY_PROJECTS_URL },
+
+            // Previous batch archives
+            { label: 'BSEE 21-25 Archive', keywords: ['bsee 21-25','21-25','bsee 21','previous batch','previous papers','archive'], url: DRIVE_LINKS[0].url },
+            { label: 'BSEE 22-26 Archive', keywords: ['bsee 22-26','22-26','bsee 22','previous batch','previous papers','archive'], url: DRIVE_LINKS[1].url },
+            { label: 'BSEE 23-27 Archive', keywords: ['bsee 23-27','23-27','bsee 23','previous batch','previous papers','archive'], url: DRIVE_LINKS[2].url },
+            { label: 'BSEE 24-28 Archive', keywords: ['bsee 24-28','24-28','bsee 24','previous batch','previous papers','archive'], url: DRIVE_LINKS[3].url }
         ];
         function openSearchResult(url, label){
             showToast(`📂 Opening ${label} Drive...`);
             window.open(url, '_blank', 'noopener,noreferrer');
         }
+        SEARCH_INDEX.forEach(item => { item.action = () => openSearchResult(item.url, item.label); });
+        const SEMESTER_QUERY_PATTERNS = [
+            { num: 1, patterns: [/semester\s*0?1\b/, /\bsem\s*0?1\b/, /\b1\s*courses?\b/] },
+            { num: 2, patterns: [/semester\s*0?2\b/, /\bsem\s*0?2\b/, /\b2\s*courses?\b/] },
+            { num: 3, patterns: [/semester\s*0?3\b/, /\bsem\s*0?3\b/, /\b3\s*courses?\b/] }
+        ];
         const searchInput = document.getElementById('searchInput');
         const searchSuggestionsEl = document.getElementById('searchSuggestions');
         document.body.appendChild(searchSuggestionsEl); // portal out of the header so it can never be clipped
@@ -777,9 +845,21 @@
             searchSuggestionsEl.style.top = `${rect.bottom + 8}px`;
             searchSuggestionsEl.style.width = `${rect.width}px`;
         }
+        function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+        function wordBoundaryMatch(haystack, needle){
+            if(!needle) return false;
+            try { return new RegExp('(^|[^a-z0-9])' + escapeRegExp(needle) + '($|[^a-z0-9])', 'i').test(haystack); }
+            catch(e){ return haystack.includes(needle); }
+        }
         function matchSearchIndex(query){
             if(!query) return [];
-            return SEARCH_INDEX.filter(item => item.label.toLowerCase().includes(query) || item.keywords.some(k => k.includes(query) || query.includes(k)));
+            for(const sp of SEMESTER_QUERY_PATTERNS){
+                if(sp.patterns.some(p => p.test(query))){
+                    const groupMatches = SEARCH_INDEX.filter(item => item.semester === sp.num);
+                    if(groupMatches.length) return groupMatches;
+                }
+            }
+            return SEARCH_INDEX.filter(item => item.label.toLowerCase().includes(query) || item.keywords.some(k => k.includes(query) || wordBoundaryMatch(query, k)));
         }
         function closeSuggestions(){
             searchSuggestionsEl.classList.remove('open');

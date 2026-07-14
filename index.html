@@ -163,15 +163,15 @@
         .brand h1 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(0.85rem, 1.8vw, 1.05rem); line-height: 1.2; letter-spacing: 0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .brand p { margin: 3px 0 0; font-size: 0.82rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        .topbar-search { position: relative; flex: 1 1 260px; max-width: 280px; transition: max-width 0.4s cubic-bezier(0.4,0,0.2,1); }
-        .topbar-search:focus-within { max-width: 380px; }
-        .topbar-search .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--muted); pointer-events: none; display: grid; place-items: center; z-index: 2; transition: color 0.3s ease; }
+        .topbar-search { position: relative; flex: 1.4 1 300px; max-width: 340px; margin: 0 auto; transition: max-width 0.4s cubic-bezier(0.4,0,0.2,1); }
+        .topbar-search:focus-within { max-width: 420px; }
+        .topbar-search .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--muted); pointer-events: none; display: grid; place-items: center; z-index: 2; transition: color 0.3s ease; }
         .topbar-search:focus-within .search-icon { color: var(--accent-2); }
-        .topbar-search .search-icon svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; }
-        .topbar-search input { width: 100%; border: 1.5px solid rgba(var(--accent-rgb), 0.4); background: var(--card); color: var(--text); border-radius: 999px; padding: 9px 12px 9px 35px; outline: none; font-family: var(--font-body); font-size: 0.9rem; transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.2s ease, padding 0.35s cubic-bezier(0.4,0,0.2,1); }
+        .topbar-search .search-icon svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+        .topbar-search input { width: 100%; border: 1.5px solid rgba(var(--accent-rgb), 0.4); background: var(--card); color: var(--text); border-radius: 999px; padding: 11px 14px 11px 40px; outline: none; font-family: var(--font-body); font-size: 0.94rem; transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.2s ease, padding 0.35s cubic-bezier(0.4,0,0.2,1); }
         .topbar-search input::placeholder { color: var(--muted); }
         .topbar-search input:hover { background: var(--card-hover); }
-        .topbar-search input:focus { border-color: var(--accent-2); box-shadow: 0 0 0 4px rgba(var(--accent-2-rgb), 0.14), 0 0 18px rgba(var(--accent-2-rgb), 0.3); padding: 11px 14px 11px 38px; }
+        .topbar-search input:focus { border-color: var(--accent-2); box-shadow: 0 0 0 4px rgba(var(--accent-2-rgb), 0.14), 0 0 18px rgba(var(--accent-2-rgb), 0.3); padding: 13px 16px 13px 43px; }
         .search-suggestions { position: fixed; background: var(--panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(var(--accent-rgb), 0.35); border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 24px rgba(var(--accent-rgb), 0.16); overflow: hidden; z-index: 9999; opacity: 0; visibility: hidden; transform: translateY(-8px); transition: opacity 0.22s cubic-bezier(0.4,0,0.2,1), transform 0.22s cubic-bezier(0.4,0,0.2,1), visibility 0.22s ease; pointer-events: none; }
         .search-suggestions.open { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
         .search-suggestion-item { display: flex; align-items: center; gap: 11px; padding: 11px 14px; font-family: var(--font-body); font-size: 0.85rem; color: var(--text); cursor: pointer; transition: background 0.15s ease; border-top: 1px solid var(--line); }
@@ -208,6 +208,9 @@
         .hero h2 .accent-word { background: linear-gradient(120deg, var(--accent), var(--accent-3) 55%, var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 16px rgba(var(--accent-rgb), 0.25)); }
         .hero p { margin: 0; color: var(--muted); font-size: 0.95rem; line-height: 1.7; max-width: 62ch; text-align: justify; }
         .hero-actions { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+        .hero-disclaimer { margin-top: 14px; display: flex; align-items: flex-start; gap: 9px; padding: 10px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--card); backdrop-filter: blur(8px); color: var(--muted); font-size: 0.78rem; line-height: 1.55; max-width: 62ch; }
+        .hero-disclaimer svg { width: 15px; height: 15px; flex: 0 0 auto; margin-top: 2px; color: var(--accent); opacity: 0.85; }
+        .hero-disclaimer strong { color: var(--text); font-weight: 600; }
 
         .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 12px 16px; border-radius: 13px; border: 1px solid transparent; background: linear-gradient(135deg, var(--accent), var(--accent-3)); color: #03040c; font-weight: 700; letter-spacing: 0.01em; box-shadow: 0 12px 28px rgba(var(--accent-rgb), 0.22); cursor: pointer; transition: 0.2s ease; }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.08); box-shadow: 0 12px 32px rgba(var(--accent-2-rgb), 0.28); }
@@ -426,6 +429,10 @@
                     <h2>Welcome to <span class="accent-word">BSEE Resource Vault</span>, Curated by BSEE 25-29 Batch.</h2>
                     <p>A student-led academic resource hub developed by the BSEE 2025–2029 Batch, dedicated to providing organized access to semester notes, laboratory materials, assignments, projects, past papers, and other essential Electrical Engineering resources. The platform aims to support academic excellence, collaborative learning, and knowledge sharing, serving as a valuable resource for both current and future BSEE students.
 </p>
+                    <div class="hero-disclaimer">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+                        <span><strong>Disclaimer:</strong> The content has been curated with great care. However, due to possible human error, some errors or omissions may exist.</span>
+                    </div>
                     <div class="hero-actions">
                         <a class="btn" href="#core-modules">Browse Vault</a>
                     </div>

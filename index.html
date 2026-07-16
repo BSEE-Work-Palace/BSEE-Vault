@@ -925,7 +925,12 @@
         searchInput.addEventListener('focus', () => { if(searchInput.value.trim()) renderSuggestions(searchInput.value.trim().toLowerCase()); });
         window.addEventListener('resize', () => { if(searchSuggestionsEl.classList.contains('open')) positionSearchSuggestions(); }, { passive: true });
         window.addEventListener('scroll', () => { if(searchSuggestionsEl.classList.contains('open')) positionSearchSuggestions(); }, { passive: true });
-        document.addEventListener('click', e => { if(!e.target.closest('.topbar-search') && !e.target.closest('.search-suggestions')) closeSuggestions(); });
+        document.addEventListener('click', e => {
+            const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+            const topbarSearchEl = searchInput.closest('.topbar-search');
+            const clickedInsideSearch = path.includes(topbarSearchEl) || path.includes(searchSuggestionsEl);
+            if (!clickedInsideSearch) closeSuggestions();
+        });
         searchInput.addEventListener('keydown', e => {
             if (e.key === 'Escape') { closeSuggestions(); return; }
             if (e.key !== 'Enter') return;
